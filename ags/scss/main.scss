@@ -1,1 +1,11 @@
-@use 'notification'
+// TODO: refactor scss file to use @use instead of @import
+// Colors
+@import 'material';
+@import './color';
+@import './lib_mixins';
+@import './lib_classes';
+
+
+// Components
+@import './osd';
+@import './notification';
