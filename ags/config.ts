@@ -6,10 +6,11 @@ const configOptions = {
     'dateFormat': "%d/%m",
     'dateFormatLong': "%A, %d/%m",
     'dateInterval': 5000
+  },
+  'animations': {
+    'durationSmall': 110,
+    'durationLarge': 180
   }
 }
-
-
-globalThis.configOptions = configOptions
 
 export default configOptions

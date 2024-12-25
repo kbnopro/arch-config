@@ -19,6 +19,9 @@
       ],
       "@config": [
         "./config.ts"
+      ],
+      "@shared/*": [
+        "./shared/*"
       ]
     },
   }

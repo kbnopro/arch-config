@@ -1,7 +1,6 @@
 import { App, Gtk, Gdk } from "astal/gtk3"
 import Notification from "./widgets/notification/NotificationPopup"
 import { COMPILED_STYLE_DIR, resetStyle } from "./resetStyle"
-import _configOptions from "./config"
 
 function forMonitors(window: (gdkmonitor: Gdk.Monitor) => Gtk.Widget) {
   App.get_monitors().map(window)
