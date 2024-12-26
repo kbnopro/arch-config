@@ -3,7 +3,7 @@ import { Gtk, Astal, Widget } from "astal/gtk3";
 import GLib from "gi://GLib?version=2.0";
 import configOptions from "@config";
 import { MaterialIcon } from "@shared/widgets";
-import Variable from "../../../../../../usr/share/astal/gjs/variable";
+import { bind, Variable } from "astal";
 
 const NotifSummaryText = ({
   notifObject,
@@ -193,11 +193,11 @@ const NotifTextExpanded = ({
 
 const NotifText = ({
   notifObject,
-  setup,
+  revealerSetup,
   onClickExpandButton,
 }: {
   notifObject: Notifd.Notification;
-  setup: Widget.RevealerProps["setup"];
+  revealerSetup: Widget.RevealerProps["setup"];
   onClickExpandButton: Widget.ButtonProps["onClick"];
 }) => {
   return (
@@ -206,8 +206,8 @@ const NotifText = ({
         notifObject={notifObject}
         onClickExpandButton={onClickExpandButton}
       />
-      <NotifTextPreview notifObject={notifObject} />
-      <NotifTextExpanded notifObject={notifObject} setup={setup} />
+      <NotifTextPreview notifObject={notifObject} setup={revealerSetup} />
+      <NotifTextExpanded notifObject={notifObject} setup={revealerSetup} />
     </box>
   );
 };
@@ -236,7 +236,7 @@ const NotifContent = ({
         <NotifText
           onClickExpandButton={onClickExpandButton}
           notifObject={notifObject}
-          setup={(self) =>
+          revealerSetup={(self) =>
             self.hook(expanded, (self) => {
               self.set_reveal_child(!self.get_reveal_child());
             })
@@ -258,11 +258,19 @@ class Notification {
     notifObject: Notifd.Notification;
     isPopup?: boolean;
   }) {
+    const revealed = Variable(false);
+    let id = GLib.timeout_add(0, 20, () => {
+      revealed.set(true);
+      return false;
+    });
     this.notifObject = notifObject;
     this.isPopup = isPopup;
     this.widget = (
       <revealer
-        revealChild={true}
+        onDestroy={() => {
+          GLib.source_remove(id);
+        }}
+        revealChild={bind(revealed)}
         transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
         transitionDuration={configOptions.animations.durationLarge}
       >

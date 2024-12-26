@@ -33,14 +33,16 @@ export default (gdkmonitor: Gdk.Monitor) => {
 
   return (
     <window
-      name={"notification-popup"}
+      exclusivity={Astal.Exclusivity.IGNORE}
+      name={"indicator"}
       gdkmonitor={gdkmonitor}
       layer={OVERLAY}
       anchor={TOP}
       visible={true}
       className={"indicator"}
+      namespace={"indicator"}
     >
-      <box vertical={true} hexpand={true} className={"osd-window"}>
+      <box vertical={true} className={"osd-window"}>
         <box
           vertical={true}
           className={"osd-notifs spacing-v-5-revealer"}
