@@ -1,6 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "baseUrl": "./",
     "experimentalDecorators": true,
     "strict": true,
     "target": "ES2022",
@@ -10,6 +11,9 @@
     // "allowJs": true,
     "jsx": "react-jsx",
     "jsxImportSource": "/usr/share/astal/gjs/gtk3",
+    // Rules which are implemented in Eslint
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "paths": {
       "astal": [
         "/usr/share/astal/gjs"
@@ -17,12 +21,21 @@
       "astal/*": [
         "/usr/share/astal/gjs/*"
       ],
-      "@config": [
-        "./config.ts"
+      "@/*": [
+        "./*"
       ],
-      "@shared/*": [
-        "./shared/*"
+      "@config": [
+        "./src/config.ts"
+      ],
+      "@notification": [
+        "./src/features/notification"
+      ],
+      "@widgets": [
+        "./src/widgets/"
+      ],
+      "@utils": [
+        "./src/utils/"
       ]
-    },
+    }
   }
 }
