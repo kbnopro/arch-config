@@ -1,5 +1,6 @@
 import configOptions from "@config";
 import { getUrgency, type NotifData } from "@notification";
+import { getTimeout } from "@notification";
 import { bind, timeout, Variable } from "astal";
 import { Gtk } from "astal/gtk3";
 import Notifd from "gi://AstalNotifd";
@@ -19,12 +20,7 @@ export class Notification {
     const revealTimer = timeout(20, () => {
       revealed.set(true);
     });
-    let notifTimeOut = notifObject.get_expire_timeout();
-    if (notifTimeOut == -1) {
-      // This is the case when timeout is not set by application
-      notifTimeOut
-        = getUrgency(notifData.notifObject) == "critical" ? 8000 : 3000;
-    }
+    const notifTimeOut = getTimeout(notifData);
     // Checking the behaviour, either notify-send or Notifd actually handle the timeout
     // However, it safe to implement this ourself just in case
     const timeoutTimer = timeout(notifTimeOut, () => {

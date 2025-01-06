@@ -39,7 +39,25 @@ const IconChild = ({
 };
 
 export const Icon = ({ notifData }: { notifData: NotifData }) => {
-  const urgency = getUrgency(notifData.notifObject);
+  const { notifObject } = notifData;
+  const imagePath = notifObject.get_image();
+  if (imagePath) {
+    return (
+      <box
+        valign={Gtk.Align.CENTER}
+        hexpand={false}
+        className="notif-icon"
+        css={`
+          background-image: url("${imagePath}");
+          background-size: auto 100%;
+          background-repeat: no-repeat;
+          background-position: center;
+        `}
+      />
+    );
+  }
+
+  const urgency = getUrgency(notifObject);
   return (
     <box
       valign={Gtk.Align.CENTER}
