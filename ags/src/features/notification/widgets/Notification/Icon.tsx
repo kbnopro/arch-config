@@ -35,7 +35,7 @@ const IconChild = ({
       ? "release_alert"
       : guessMessageType(notifObject.get_summary());
 
-  return <MaterialIcon label={icon} size="hugerass" hexpand={true} />;
+  return <MaterialIcon label={icon} size="hugeass" hexpand={true} />;
 };
 
 export const Icon = ({ notifData }: { notifData: NotifData }) => {

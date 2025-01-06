@@ -1,17 +1,16 @@
 import { NotificationPopup } from "@notification";
-import { Astal, type Gdk } from "astal/gtk3";
+import { Astal } from "astal/gtk3";
 
-export const Indicators = (gdkmonitor: Gdk.Monitor) => {
+export const Indicators = (monitor: number) => {
   return (
     <window
       exclusivity={Astal.Exclusivity.IGNORE}
-      name="indicator"
-      gdkmonitor={gdkmonitor}
+      name={`indicator${monitor.toString()}`}
+      monitor={monitor}
       layer={Astal.Layer.OVERLAY}
       anchor={Astal.WindowAnchor.TOP}
       visible={true}
       className="indicator"
-      namespace="indicator"
     >
       <box vertical={true} className="osd-window">
         <NotificationPopup />
