@@ -5,6 +5,7 @@ import { Gtk } from "astal/gtk3";
 import Notifd from "gi://AstalNotifd";
 
 import { Content } from "./Content";
+import { Icon } from "./Icon";
 import { Summary } from "./Summary";
 
 export class Notification {
@@ -52,6 +53,7 @@ export class Notification {
                 className={`${isPopup ? "popup-" : ""}notif-${urgency} spacing-h-10`}
               >
                 <box className="spacing-h-5">
+                  <Icon notifData={notifData} />
                   <box vertical={true} valign={Gtk.Align.CENTER} hexpand={true}>
                     <Summary notifData={notifData} />
                     <Content notifData={notifData} />
@@ -72,9 +74,8 @@ export class Notification {
     // The non-popup notification should not be closed when notification expired
     // This expiration is triggered by notify-send
     if (reason == Notifd.ClosedReason.EXPIRED && !this.notifData.isPopup)
-      return false;
+      return;
     this.widget.destroy();
-    return true;
     // Return whether the widget is closed or not
   };
 }

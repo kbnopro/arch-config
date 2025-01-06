@@ -1,9 +1,8 @@
 // This is placed outside so ags can find the entrypoint
 import { COMPILED_STYLE_DIR, resetStyle } from "@utils";
+import { Indicators } from "@windows";
 import type { Gdk, Gtk } from "astal/gtk3";
 import { App } from "astal/gtk3";
-
-import { Indicators } from "./src/windows";
 
 function forMonitors(window: (gdkmonitor: Gdk.Monitor) => Gtk.Widget) {
   App.get_monitors().map(window);

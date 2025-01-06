@@ -4,6 +4,7 @@ import Notifd from "gi://AstalNotifd";
 import { Notification } from "./Notification";
 
 class NotificationMap {
+  // TODO: refactor this map to be usable in notification center
   private notifd: Notifd.Notifd = Notifd.get_default();
   private map: Map<number, Notification> = new Map();
   constuctor() { }
@@ -16,7 +17,12 @@ class NotificationMap {
       expanded: Variable(false),
     });
     this.map.set(id, notification);
-    return notification.getWidget();
+    const widget = notification.getWidget();
+    // memory management when widget is destroyed
+    widget.connect("destroy", () => {
+      this.map.delete(id);
+    });
+    return widget;
   };
 
   public resolve = (id: number) => {
@@ -26,7 +32,10 @@ class NotificationMap {
     notification.close();
     // Without the notification center, some popup will never be deleted from the list
     // However, thanks to the id cycle implemented, the chance of memory leak is low
-    this.map.delete(id);
+
+    // Calling this is not necessary as function close call the destroy widget, which
+    // will cause the id remove in this.notify
+    // this.map.delete(id);
   };
 
   public get_notifd = () => this.notifd;
