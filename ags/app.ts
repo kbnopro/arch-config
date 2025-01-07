@@ -1,5 +1,5 @@
 // This is placed outside so ags can find the entrypoint
-import { COMPILED_STYLE_DIR, resetStyle } from "@utils";
+import { applyStyle } from "@utils";
 import { Indicators } from "@windows";
 import type { Gtk } from "astal/gtk3";
 import { App, Gdk } from "astal/gtk3";
@@ -11,18 +11,14 @@ function forMonitors(window: (monitor: number) => Gtk.Widget) {
   range(n, 0).map(window);
 }
 
-resetStyle();
-
 App.start({
-  css: `${COMPILED_STYLE_DIR}/style.css`,
   main() {
+    applyStyle();
     forMonitors(Indicators);
   },
   requestHandler(request, res) {
     if (request == "reset style") {
-      resetStyle();
-      App.reset_css();
-      App.apply_css(`${COMPILED_STYLE_DIR}/style.css`);
+      applyStyle();
       res("Successfully reset style.");
     }
   },
