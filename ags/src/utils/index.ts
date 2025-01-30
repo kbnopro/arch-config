@@ -1,1 +1,1 @@
-export * from "./resetStyle";
+export * from "./handleStyles";
