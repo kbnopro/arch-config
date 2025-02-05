@@ -82,19 +82,30 @@ parser.add_argument(
 parser.add_argument("--debug", action="store_true", default=False, help="debug mode")
 args = parser.parse_args()
 
-rgba_to_hex = lambda rgba: "#{:02X}{:02X}{:02X}".format(rgba[0], rgba[1], rgba[2])
-argb_to_hex = lambda argb: "#{:02X}{:02X}{:02X}".format(
-    *map(round, rgba_from_argb(argb))
-)
-hex_to_argb = lambda hex_code: argb_from_rgb(
-    int(hex_code[1:3], 16), int(hex_code[3:5], 16), int(hex_code[5:], 16)
-)
-display_color = lambda rgba: "\x1b[38;2;{};{};{}m{}\x1b[0m".format(
-    rgba[0], rgba[1], rgba[2], "\x1b[7m   \x1b[7m"
-)
+
+def rgba_to_hex(rgba):
+    return "#{:02X}{:02X}{:02X}".format(rgba[0], rgba[1], rgba[2])
 
 
-def calculate_optimal_size(width: int, height: int, bitmap_size: int) -> (int, int):
+def argb_to_hex(argb):
+    return "#{:02X}{:02X}{:02X}".format(*map(round, rgba_from_argb(argb)))
+
+
+def hex_to_argb(hex_code):
+    return argb_from_rgb(
+        int(hex_code[1:3], 16), int(hex_code[3:5], 16), int(hex_code[5:], 16)
+    )
+
+
+def display_color(rgba):
+    return "\x1b[38;2;{};{};{}m{}\x1b[0m".format(
+        rgba[0], rgba[1], rgba[2], "\x1b[7m   \x1b[7m"
+    )
+
+
+def calculate_optimal_size(
+    width: int, height: int, bitmap_size: int
+) -> tuple[int, int]:
     image_area = width * height
     bitmap_area = bitmap_size**2
     scale = math.sqrt(bitmap_area / image_area) if image_area > bitmap_area else 1
@@ -188,7 +199,7 @@ for color in vars(MaterialDynamicColors).keys():
         material_colors[color] = rgba_to_hex(rgba)
 
 # Extended material
-if darkmode == True:
+if darkmode:
     material_colors["success"] = "#B5CCBA"
     material_colors["onSuccess"] = "#213528"
     material_colors["successContainer"] = "#374B3E"
@@ -230,7 +241,7 @@ if args.termscheme is not None:
             )
         term_colors[color] = argb_to_hex(harmonized)
 
-if args.debug == False:
+if not args.debug:
     print(f"$darkmode: {darkmode};")
     print(f"$transparent: {transparent};")
     for color, code in material_colors.items():
