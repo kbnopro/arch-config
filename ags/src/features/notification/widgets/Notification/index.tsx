@@ -72,6 +72,5 @@ export class Notification {
     if (reason == Notifd.ClosedReason.EXPIRED && !this.notifData.isPopup)
       return;
     this.widget.destroy();
-    // Return whether the widget is closed or not
   };
 }

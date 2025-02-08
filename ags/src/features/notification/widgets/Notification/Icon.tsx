@@ -1,7 +1,8 @@
-import { getUrgency, type NotifData } from "@notification";
+import { getTimeout, getUrgency, type NotifData } from "@notification";
 import { Astal, Gtk } from "astal/gtk3";
 
 import { MaterialIcon } from "@/src/widgets";
+import { AnimatedCircularProgress } from "@/src/widgets/AnimatedCircularProgress";
 
 const guessMessageType = (summary: string) => {
   const str = summary.toLowerCase();
@@ -30,16 +31,6 @@ const IconChild = ({
   if (Astal.Icon.lookup_icon(appIcon))
     return <icon icon={appIcon} valign={Gtk.Align.CENTER} />;
 
-  const icon
-    = getUrgency(notifObject) == "critical"
-      ? "release_alert"
-      : guessMessageType(notifObject.get_summary());
-
-  return <MaterialIcon label={icon} size="hugeass" hexpand={true} />;
-};
-
-export const Icon = ({ notifData }: { notifData: NotifData }) => {
-  const { notifObject } = notifData;
   const imagePath = notifObject.get_image();
   if (imagePath) {
     return (
@@ -57,15 +48,48 @@ export const Icon = ({ notifData }: { notifData: NotifData }) => {
     );
   }
 
+  const icon
+    = getUrgency(notifObject) == "critical"
+      ? "release_alert"
+      : guessMessageType(notifObject.get_summary());
+
+  return (
+    <MaterialIcon
+      label={icon}
+      size="larger"
+      hexpand={true}
+      valign={Gtk.Align.CENTER}
+      halign={Gtk.Align.CENTER}
+    />
+  );
+};
+
+export const Icon = ({ notifData }: { notifData: NotifData }) => {
+  const { notifObject } = notifData;
+
   const urgency = getUrgency(notifObject);
   return (
     <box
-      valign={Gtk.Align.CENTER}
-      hexpand={false}
-      className={`notif-icon notif-icon-material-${urgency}`}
+      valign={Gtk.Align.START}
       homogeneous={true}
     >
-      <IconChild notifData={notifData} />
+      <overlay>
+        <box
+          valign={Gtk.Align.CENTER}
+          hexpand={false}
+          className={`notif-icon notif-icon-material-${urgency}`}
+          homogeneous={true}
+        >
+          <IconChild notifData={notifData} />
+        </box>
+        <AnimatedCircularProgress
+          className={`notif-circprog-${urgency} overlay`}
+          startAt={0}
+          endAt={100}
+          timeout={getTimeout(notifData)}
+        >
+        </AnimatedCircularProgress>
+      </overlay>
     </box>
   );
 };
