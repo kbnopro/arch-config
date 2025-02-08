@@ -5,6 +5,7 @@ export const Indicator = (monitor: number) => (
   <window
     exclusivity={Astal.Exclusivity.IGNORE}
     name={`indicator${monitor.toString()}`}
+    namespace={`indicator${monitor.toString()}`}
     monitor={monitor}
     layer={Astal.Layer.OVERLAY}
     anchor={Astal.WindowAnchor.TOP}

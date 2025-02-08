@@ -11,6 +11,15 @@ const configOptions = {
     durationSmall: 110,
     durationLarge: 180,
   },
+  bar: {
+    modes: ["normal", "focus", "nothing"] as const,
+  },
+  icons: {
+    symbolicIconTheme: {
+      dark: "Adwaita",
+      light: "Adwaita",
+    },
+  },
 };
 
 export default configOptions;

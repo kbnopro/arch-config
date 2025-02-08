@@ -8,8 +8,10 @@
 @import "material";
 @import "./color";
 @import "./lib_mixins";
+@import "lib_mixins_overrides";
 @import "./lib_classes";
 
 // Components
+@import "./bar";
 @import "./osd";
 @import "./notification";

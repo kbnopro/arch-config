@@ -30,6 +30,9 @@
       "@notification": [
         "./src/features/notification"
       ],
+      "@bar": [
+        "./src/features/bar"
+      ],
       "@widgets": [
         "./src/widgets/"
       ],
