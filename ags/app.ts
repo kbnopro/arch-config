@@ -1,6 +1,6 @@
 // This is placed outside so ags can find the entrypoint
 import { applyStyle } from "@utils";
-import { Bar, Indicator } from "@windows";
+import { Bar, BarCornerTopLeft, BarCornerTopRight, Indicator } from "@windows";
 import type { Gtk } from "astal/gtk3";
 import { App, Gdk } from "astal/gtk3";
 
@@ -16,6 +16,8 @@ App.start({
     applyStyle();
     forMonitors(Indicator);
     forMonitors(Bar);
+    forMonitors(BarCornerTopLeft);
+    forMonitors(BarCornerTopRight);
   },
   requestHandler(request, res) {
     if (request == "reset style") {

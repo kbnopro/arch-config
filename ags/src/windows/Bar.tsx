@@ -1,4 +1,4 @@
-import { FocusedBar, NormalBar, NothingBar } from "@bar";
+import { FocusedBar, NormalBar, NothingBar, RoundedCorner } from "@bar";
 import configOptions from "@config";
 import { barStates } from "@variables";
 import { Astal, Gtk } from "astal/gtk3";
@@ -31,6 +31,36 @@ export const Bar = (monitor: number) => {
         <FocusedBar monitor={monitor} name="focused" />
         <NothingBar name="nothing" />
       </stack>
+    </window>
+  );
+};
+
+export const BarCornerTopLeft = (monitor: number) => {
+  return (
+    <window
+      monitor={monitor}
+      name={`barcornerctl${monitor.toString()}`}
+      namespace={`barcornerctl${monitor.toString()}`}
+      anchor={TOP | LEFT}
+      exclusivity={Astal.Exclusivity.NORMAL}
+      visible={true}
+    >
+      <RoundedCorner place="topleft" className="corner" />
+    </window>
+  );
+};
+
+export const BarCornerTopRight = (monitor: number) => {
+  return (
+    <window
+      monitor={monitor}
+      name={`barcornerctr${monitor.toString()}`}
+      namespace={`barcornerctr${monitor.toString()}`}
+      anchor={TOP | RIGHT}
+      exclusivity={Astal.Exclusivity.NORMAL}
+      visible={true}
+    >
+      <RoundedCorner place="topright" className="corner" />
     </window>
   );
 };
