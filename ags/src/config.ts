@@ -20,6 +20,9 @@ const configOptions = {
       light: "Adwaita",
     },
   },
+  workspaces: {
+    shown: 10,
+  },
 };
 
 export default configOptions;

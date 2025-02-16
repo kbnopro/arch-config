@@ -1,7 +1,7 @@
 import { FocusedBar, NormalBar, NothingBar, RoundedCorner } from "@bar";
 import configOptions from "@config";
 import { barStates } from "@variables";
-import { Astal, Gtk } from "astal/gtk3";
+import { Astal, Gdk, Gtk } from "astal/gtk3";
 
 const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
 
@@ -14,6 +14,9 @@ export const Bar = (monitor: number) => {
       namespace={`bar${monitor.toString()}`}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       visible={true}
+      setup={(self) => {
+        self.add_events(Gdk.EventMask.BUTTON_PRESS_MASK);
+      }}
     >
       <stack
         homogeneous={false}
