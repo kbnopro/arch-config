@@ -1,4 +1,4 @@
-import { CenterWidget } from "./centerWidget";
+import { CenterWidget } from "./CenterWidget";
 
 export const NormalBar = ({ monitor: _monitor, name }: { monitor: number; name: string }) => (
   <centerbox

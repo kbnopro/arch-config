@@ -1,7 +1,7 @@
 import { SideModule } from "@bar";
 
-import { Indicators } from "./indicators";
-import Workspace from "./workspace";
+import { System } from "./system";
+import Workspace from "./Workspace";
 
 export const CenterWidget = () => (
   <box
@@ -14,7 +14,7 @@ export const CenterWidget = () => (
       <Workspace />
     </box>
     <SideModule>
-      <Indicators />
+      <System />
     </SideModule>
   </box>
 );
