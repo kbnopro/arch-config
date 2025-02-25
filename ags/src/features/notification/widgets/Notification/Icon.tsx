@@ -1,8 +1,8 @@
 import { getTimeout, getUrgency, type NotifData } from "@notification";
+import { interval } from "astal";
 import { Astal, Gtk } from "astal/gtk3";
 
 import { MaterialIcon } from "@/src/widgets";
-import { AnimatedCircularProgress } from "@/src/widgets/AnimatedCircularProgress";
 
 const guessMessageType = (summary: string) => {
   const str = summary.toLowerCase();
@@ -67,7 +67,10 @@ const IconChild = ({
 export const Icon = ({ notifData }: { notifData: NotifData }) => {
   const { notifObject } = notifData;
 
+  const SPLIT = 100;
   const urgency = getUrgency(notifObject);
+  const timer = interval(getTimeout(notifData) / SPLIT);
+
   return (
     <box
       valign={Gtk.Align.START}
@@ -82,13 +85,16 @@ export const Icon = ({ notifData }: { notifData: NotifData }) => {
         >
           <IconChild notifData={notifData} />
         </box>
-        <AnimatedCircularProgress
+        <circularprogress
           className={`notif-circprog-${urgency} overlay`}
           startAt={0}
           endAt={100}
-          timeout={getTimeout(notifData)}
+          value={0}
+          setup={self => self.hook(timer, "now", (self) => {
+            self.set_value(self.value + 1 / SPLIT);
+          })}
         >
-        </AnimatedCircularProgress>
+        </circularprogress>
       </overlay>
     </box>
   );

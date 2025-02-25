@@ -69,8 +69,7 @@ const WorkspaceContents = () => {
     <drawingarea
       className="bar-ws-container"
       setup={self => self
-        .hook(hyprland, "event", (self, name: string) => {
-          if (name === "workspace") updateMask();
+        .hook(hyprland, "notify::focused-workspace", (self) => {
           self.queue_draw();
         })
         .hook(self, "draw", (self, cr: giCairo.Context) => {
@@ -173,7 +172,7 @@ const WorkspaceContents = () => {
   );
 };
 
-export default () => {
+export const Workspace = () => {
   const count = configOptions.workspaces.shown;
   return (
     <eventbox
@@ -184,7 +183,6 @@ export default () => {
             const [_, x, _y] = event.get_coords();
             const widgetWidth = self.get_allocation().width;
             const wsId = Math.ceil(x * count / widgetWidth);
-            print(wsId);
             execAsync([`${GLib.get_user_config_dir()}/hypr/scripts/workspaceAction.sh`, "workspace", wsId.toString()]).catch(print);
           }
           else if (event.get_button()[1] === 8) {

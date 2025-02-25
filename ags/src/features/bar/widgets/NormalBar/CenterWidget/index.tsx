@@ -1,7 +1,7 @@
 import { SideModule } from "@bar";
 
 import { System } from "./system";
-import Workspace from "./Workspace";
+import { Workspace } from "./Workspace";
 
 export const CenterWidget = () => (
   <box

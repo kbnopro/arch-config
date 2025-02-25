@@ -1,7 +1,8 @@
-import type { Gtk } from "astal/gtk3";
+import type { Widget } from "astal/gtk3";
 
-export const SideModule = ({ children }: { children?: Gtk.Widget }) => (
-  <box className="bar-sidemodule">
-    {children}
-  </box>
-);
+export const SideModule = ({ ...props }: Widget.BoxProps) => {
+  return (
+    <box className="bar-sidemodule" {...props}>
+    </box>
+  );
+};

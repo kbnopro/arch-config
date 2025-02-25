@@ -152,8 +152,8 @@ $bar_ws_width_focus_active: 2.045rem;
 .bar-batt {
     @include full-rounding;
     @include element_decel;
-    min-height: 1.77rem;
-    min-width: 1.77rem;
+    min-height: 1.57rem;
+    min-width: 1.57rem;
     border-radius: 10rem;
     color: $battOnLayer2;
 }
@@ -164,11 +164,10 @@ $bar_ws_width_focus_active: 2.045rem;
 
 .bar-batt-circprog {
     @include fluent_decel_long;
-    min-width: 0.136rem; // line width
-    min-height: 1.636rem;
     padding: 0rem;
     background-color: $battLayer2;
     color: $battOnLayer2;
+    font-size: 0.1rem;
 }
 
 .bar-batt-circprog-low {
