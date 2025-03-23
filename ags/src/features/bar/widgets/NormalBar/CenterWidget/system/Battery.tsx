@@ -11,7 +11,7 @@ const battery = AstalBattery.get_default();
 
 export const Battery = () => {
   const criticalThreshold = configOptions.battery.critical;
-  const isCritical = battery.percentage * 100 <= criticalThreshold;
+  const isCritical = battery.percentage * 100 <= criticalThreshold && !battery.charging;
   return (
     <BarGroup>
       <box className="spacing-h-4 bar-batt-txt">

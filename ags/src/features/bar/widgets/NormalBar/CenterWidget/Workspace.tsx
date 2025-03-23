@@ -1,6 +1,7 @@
 import configOptions from "@config";
 import { execAsync, GLib } from "astal";
 import { Gdk, Gtk } from "astal/gtk3";
+import type { DrawingArea } from "astal/gtk3/widget";
 import giCairo from "cairo";
 import Hyprland from "gi://AstalHyprland";
 import Pango from "gi://Pango";
@@ -65,13 +66,17 @@ const WorkspaceContents = () => {
 
   updateMask();
 
+  const updateWorkspace = (self: DrawingArea) => {
+    updateMask();
+    self.queue_draw();
+  };
+
   return (
     <drawingarea
       className="bar-ws-container"
       setup={self => self
-        .hook(hyprland, "notify::focused-workspace", (self) => {
-          self.queue_draw();
-        })
+        .hook(hyprland, "notify::focused-workspace", updateWorkspace)
+        .hook(hyprland, "client-moved", updateWorkspace)
         .hook(self, "draw", (self, cr: giCairo.Context) => {
           const activeWorspace = hyprland.get_focused_workspace();
           const offset = Math.floor((activeWorspace.id - 1) / count) * count;
