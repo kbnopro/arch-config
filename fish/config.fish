@@ -12,8 +12,9 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
-#TODO: Set up starship for terminal color
 starship init fish | source
 if test -f ~/.cache/ags/user/generated/terminal/sequences.txt
     cat ~/.cache/ags/user/generated/terminal/sequences.txt
 end
+
+zoxide init fish | source
