@@ -6,4 +6,6 @@
 !hypr/
 !starship.toml
 !foot/
-!fish
+!fish/
+!microsoft-edge-stable-flags.conf
+!uwsm/

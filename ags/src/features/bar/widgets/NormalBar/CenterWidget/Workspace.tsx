@@ -42,16 +42,16 @@ const hyprland = Hyprland.get_default();
 // Font size = workspace id
 const WorkspaceContents = () => {
   // number of workspace shown
-  const count = configOptions.workspaces.shown;
+  const count = 10;
   let workspaceInfo = {
     group: 0,
     mask: 0,
   };
 
   const updateMask = () => {
-    const activeWorspace = hyprland.get_focused_workspace();
-    const newGroup = Math.floor((activeWorspace.id - 1) / count);
-    const offset = newGroup * count;
+    const activeWorkspace = hyprland.get_focused_workspace();
+    const newGroup = Math.floor((activeWorkspace.id - 1) / count);
+    const offset = newGroup * 10;
     let newMask = 0;
     const workspaces = hyprland.get_workspaces();
     workspaces.forEach(({ id, clients }) => {

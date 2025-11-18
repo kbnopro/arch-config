@@ -1,10 +1,9 @@
-#!/bin/sh
-
 handle() {
   case $1 in
   monitoradded*)
-    ags quit
-    uwsm app -s b -- ags run
+    ags quit &&
+      uwsm app -s b -- ags run &
+    disown
     ;;
   esac
 }

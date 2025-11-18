@@ -1,5 +1,5 @@
 if status --is-login
     if uwsm check may-start
-        exec uwsm start -S hyprland.desktop >~/.cache/hyprland.log
+        exec uwsm start hyprland.desktop >~/.cache/hyprland.log
     end
 end
