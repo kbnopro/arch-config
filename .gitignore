@@ -1,5 +1,5 @@
 # Ignore everything
-*
+/*
 # Except
 !.gitignore
 !ags/
@@ -10,3 +10,4 @@
 !microsoft-edge-stable-flags.conf
 !uwsm/
 !README.md
+!gammastep/
